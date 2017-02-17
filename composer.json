@@ -71,7 +71,7 @@
         "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "file": "app/config/parameters.yml",
             "env-map": {
                 "database_name":  "SYMFONY_DATABASE_NAME",
                 "database_user":  "SYMFONY_DATABASE_USER",
