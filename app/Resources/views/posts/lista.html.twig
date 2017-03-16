@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} Posts {% endblock %}
+{% block body %}
+<h1> Posts</h1>
+{% for post in posts %}
+
+<tr>
+    <td>{{ post.id }}</td> <br>
+    <b>Autor:</b> <td>{{ post.author }}</td> <br>
+    <b>Titulo:</b> <td>{{ post.title }}</td> <br>
+    <b>Contenido:</b> <br> <td>{{ post.content }}</td> <br>
+    <td>{{ post.createdAt|date('d/m/Y H:i:s') }}</td> <br>
+    <td>{{ post.updatedAt|date('d/m/Y H:i:s') }}</td> <br>
+    <td><a href="{{ path('app_posts_update', {'id': post.id}) }}">update</a> </td>
+    <td><a href="{{ path('app_posts_remove', {'id': post.id}) }}">remove</a> </td> <br>
+</tr>
+{% endfor %}
+
+<div style="margin-top: 10px">
+    <a href="{{ path('app_posts_add') }}">Nuevo post</a>
+</div>
+{% endblock %}
