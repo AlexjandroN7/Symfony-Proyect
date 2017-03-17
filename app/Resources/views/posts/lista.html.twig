@@ -12,12 +12,12 @@
     <b>Contenido:</b> <br> <td>{{ post.content }}</td> <br>
     <td>{{ post.createdAt|date('d/m/Y H:i:s') }}</td> <br>
     <td>{{ post.updatedAt|date('d/m/Y H:i:s') }}</td> <br>
-    <td><a href="{{ path('app_posts_update', {'id': post.id}) }}">update</a> </td>
-    <td><a href="{{ path('app_posts_remove', {'id': post.id}) }}">remove</a> </td> <br>
+    <td><a href="{{ path('app_posts_update', {'id': post.id}) }}" style="color: #101010">actualizar</a> </td>
+    <td><a href="{{ path('app_posts_remove', {'id': post.id}) }}" style="color: #101010">eliminar</a> </td> <br>
 </tr>
 {% endfor %}
 
 <div style="margin-top: 10px">
-    <a href="{{ path('app_posts_add') }}">Nuevo post</a>
+    <a href="{{ path('app_posts_add') }}" style="color: #101010">Nuevo post</a>
 </div>
 {% endblock %}
