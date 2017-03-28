@@ -15,7 +15,7 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('Guardar',SubmitType::class)
+            ->add('✔ Guardar',SubmitType::class)
         ;
     }
 

@@ -4,20 +4,25 @@
 {% block body %}
 <h1> Posts</h1>
 {% for post in posts %}
-
+<div class="panel panel-default">
+    <div class="panel-body">
 <tr>
     <td>{{ post.id }}</td> <br>
     <b>Autor:</b> <td>{{ post.author }}</td> <br>
     <b>Titulo:</b> <td>{{ post.title }}</td> <br>
-    <b>Contenido:</b> <br> <td>{{ post.content }}</td> <br>
-    <td>{{ post.createdAt|date('d/m/Y H:i:s') }}</td> <br>
-    <td>{{ post.updatedAt|date('d/m/Y H:i:s') }}</td> <br>
-    <td><a href="{{ path('app_posts_update', {'id': post.id}) }}" style="color: #101010">actualizar</a> </td>
-    <td><a href="{{ path('app_posts_remove', {'id': post.id}) }}" style="color: #101010">eliminar</a> </td> <br>
-</tr>
+    <b>Contenido:</b>  <td>{{ post.content }}</td> <br>
+    <b>Creado: </b><td>{{ post.createdAt|date('d/m/Y H:i:s') }}</td> <br>
+    <b>Ultima actualización: </b><td>{{ post.updatedAt|date('d/m/Y H:i:s') }}</td> <br>
+    {% if (app.user == post.author) %}
+    <td><a class="btn btn-warning btn-sm" href="{{ path('app_posts_update', {'id': post.id}) }}" role="button" style="color: #101010">🖍 actualizar</a> </td>
+    <td><a class="btn btn-danger btn-sm" href="{{ path('app_posts_remove', {'id': post.id}) }}" role="button"style="color: #101010">✘ eliminar</a> </td> <br>
+    {%   endif %}
+        </tr>
+    </div>
+</div>
 {% endfor %}
 
 <div style="margin-top: 10px">
-    <a href="{{ path('app_posts_add') }}" style="color: #101010">Nuevo post</a>
+    <a class="btn btn-primary btn-md" href="{{ path('app_posts_add') }}" role="button" style="margin-top: 50px">➕ Nuevo post</a>
 </div>
 {% endblock %}

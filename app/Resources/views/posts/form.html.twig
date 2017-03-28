@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-{%  block title %}Form {% endblock %}
+{%  block title %}Formulario {% endblock %}
 {%  block body  %}
 
     <div>
@@ -10,7 +10,7 @@
             </div>
             <div>{{ form_label(form.title) }}: {{ form_widget(form.title, {'attr' : { 'class' : 'anyClass2'}}) }}</div>
             <div>{{ form_label(form.content) }} : {{ form_widget(form.content) }}</div>
-            {{ form_rest(form) }}
+             {{ form_rest(form) }}
 
 
         </form>
