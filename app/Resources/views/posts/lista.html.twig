@@ -13,10 +13,10 @@
     <b>Contenido:</b>  <td>{{ post.content }}</td> <br>
     <b>Creado: </b><td>{{ post.createdAt|date('d/m/Y H:i:s') }}</td> <br>
     <b>Ultima actualización: </b><td>{{ post.updatedAt|date('d/m/Y H:i:s') }}</td> <br>
-
+    {% if (app.user == post.author) %}
     <td><a class="btn btn-warning btn-sm" href="{{ path('app_posts_update', {'id': post.id}) }}" role="button" style="color: #101010">🖍 actualizar</a> </td>
     <td><a class="btn btn-danger btn-sm" href="{{ path('app_posts_remove', {'id': post.id}) }}" role="button"style="color: #101010">✘ eliminar</a> </td> <br>
-
+    {%   endif %}
         </tr>
     </div>
 </div>
