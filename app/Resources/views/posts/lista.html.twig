@@ -4,22 +4,58 @@
 {% block body %}
 <h1> Posts</h1>
 {% for post in posts %}
-<div class="panel panel-default">
-    <div class="panel-body">
-<tr>
-    <td>{{ post.id }}</td> <br>
-    <b>Autor:</b> <td>{{ post.author }}</td> <br>
-    <b>Titulo:</b> <td>{{ post.title }}</td> <br>
-    <b>Contenido:</b>  <td>{{ post.content }}</td> <br>
-    <b>Creado: </b><td>{{ post.createdAt|date('d/m/Y H:i:s') }}</td> <br>
-    <b>Ultima actualización: </b><td>{{ post.updatedAt|date('d/m/Y H:i:s') }}</td> <br>
-    {% if (app.user == post.author) or (app.user == "Alejandro") %}
-    <td><a class="btn btn-warning btn-sm" href="{{ path('app_posts_update', {'id': post.id}) }}" role="button" style="color: #101010">🖍 actualizar</a> </td>
-    <td><a class="btn btn-danger btn-sm" href="{{ path('app_posts_remove', {'id': post.id}) }}" role="button"style="color: #101010">✘ eliminar</a> </td> <br>
-    {%   endif %}
-        </tr>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <tr>
+                <td>{{ post.id }}</td> <br>
+                <b>Autor:</b> <td>{{ post.author }}</td> <br>
+                <b>Titulo:</b> <td>{{ post.title }}</td> <br>
+                <b>Contenido:</b>  <td>{{ post.content }}</td> <br>
+                <b>Creado: </b><td>{{ post.createdAt|date('d/m/Y H:i:s') }}</td> <br>
+                <b>Ultima actualización: </b><td>{{ post.updatedAt|date('d/m/Y H:i:s') }}</td> <br>
+                {% if (app.user == post.author) or (app.user == "Alejandro") %}
+                    <td><a class="btn btn-warning btn-sm" href="{{ path('app_posts_update', {'id': post.id}) }}" role="button" style="color: #101010">🖍 actualizar</a> </td>
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('app_posts_remove', {'id': post.id}) }}" role="button"style="color: #101010">✘ eliminar</a> </td> <br>
+                {%   endif %}
+            </tr>
+        </div>
+
+
+    {% for comment in post.getComment %}
+        <div class ="row" style="margin: 1%!important;">
+        <div class ="col-md-7 col-lg-7" >
+            <span >{{ comment.getMessage }}</span>
+            <span style ="float: right">{{ comment.getCreator }}</span>
+        </div>
+        <div class ="col-md-2 col-lg-2">
+            <span style ="float: right">{{ comment.getUpdatedAt|date("d/m/y") }}</span>
+
+        </div>
+
+        {% if comment.getCreator == app.user%}
+            <div class ="col-md-1 col-lg-1">
+                <span> <a class ="fi glyphicon glyphicon-remove" href="{{ path('app_comment_delete', {'id' : comment.getId }) }}"></a></span>
+            </div>
+
+        {% endif %}
+        </div>
+    {% endfor %}
+
+
+    <form action="{{ path('app_comment_createAction', {'id' : post.id}) }}" method="post">
+        <div class="input-group" style="margin-left: 2%!important;">
+
+            <input type="text" class="form-control" name ="messageInput" >
+            <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Enviar</button>
+                          </span>
+        </div>
+    </form>
     </div>
-</div>
+
+
+
 {% endfor %}
 
 <div style="margin-top: 10px">

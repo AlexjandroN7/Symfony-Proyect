@@ -33,17 +33,25 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="author", cascade={"remove"})
      *
      */
 
     private $post;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="author", cascade={"remove"})
+     */
+
+    private $comment;
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
+
+
 
 
     private $createdAt;
@@ -61,6 +69,8 @@ class User extends BaseUser
 
         $this->createdAt    = new \DateTime();
         $this->updatedAt    = $this->createdAt;
+        $this->post = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     public function setCreatedAt()

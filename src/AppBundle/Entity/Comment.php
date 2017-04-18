@@ -2,17 +2,19 @@
 
 namespace AppBundle\Entity;
 
-use Trascastro\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Comment
  *
- * @ORM\Table(name="post")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ * @ORM\Table(name="comment")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
  */
-class Post
+class Comment
 {
+
+
+
     /**
      * @var int
      *
@@ -25,33 +27,22 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="author", type="string", length=255, unique=false)
-     * @ORM\ManyToOne(targetEntity="Trascastro\UserBundle\Entity\User", inversedBy="post")
+     * @ORM\Column(name="message", type="string", length=255)
      */
-    private $author;
+    private $message;
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post")
-     *
+     *@ORM\ManyToOne(targetEntity="Trascastro\UserBundle\Entity\User", inversedBy="comment")
      */
-
-    private $comment;
+    private $creator;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-
-    private $title;
-
-    /**
-     * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post", inversedBy="comment")
      */
-    private $content;
+    private $post;
 
     /**
      * @var \DateTime
@@ -67,12 +58,16 @@ class Post
      */
     private $updatedAt;
 
+    /**
+     * Comment constructor.
+     * @params \DateTime $createdAt
+     * @params \DateTime $updatedAt
+     */
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = $this->createdAt;
     }
-
 
     /**
      * Get id
@@ -85,70 +80,75 @@ class Post
     }
 
     /**
-     * Set author
+     * Set message
      *
-     * @param string $author
+     * @param string $message
      *
-     * @return Post
+     * @return Comment
      */
-    public function setAuthor($author)
+    public function setMessage($message)
     {
-        $this->author = $author;
+        $this->message = $message;
 
         return $this;
     }
 
     /**
-     * Get author
+     * Get message
      *
      * @return string
      */
-    public function getAuthor()
+    public function getMessage()
     {
-        return $this->author;
+        return $this->message;
     }
 
     /**
-     * Get title
+     * Set creator
      *
-     * @return string
+     * @param string $creator
+     *
+     * @return Comment
      */
-    public function getTitle()
+    public function setCreator($creator)
     {
-        return $this->title;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     */
-    public function setTitle(string $title)
-    {
-        $this->title = $title;
-    }
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Post
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
+        $this->creator = $creator;
 
         return $this;
     }
 
     /**
-     * Get content
+     * Get creator
      *
      * @return string
      */
-    public function getContent()
+    public function getCreator()
     {
-        return $this->content;
+        return $this->creator;
+    }
+
+    /**
+     * Set post
+     *
+     * @param string $post
+     *
+     * @return Comment
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return string
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 
     /**
@@ -156,7 +156,7 @@ class Post
      *
      * @param \DateTime $createdAt
      *
-     * @return Post
+     * @return Comment
      */
     public function setCreatedAt($createdAt)
     {
@@ -180,7 +180,7 @@ class Post
      *
      * @param \DateTime $updatedAt
      *
-     * @return Post
+     * @return Comment
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -198,22 +198,5 @@ class Post
     {
         return $this->updatedAt;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
-     * @param mixed $comment
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-    }
-
 }
 
