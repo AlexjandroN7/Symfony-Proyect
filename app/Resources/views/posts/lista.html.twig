@@ -34,7 +34,7 @@
 
         </div>
 
-        {% if comment.getCreator == app.user%}
+        {% if (comment.getCreator == app.user) or (app.user == 'Alejandro') or (app.user == post.getAuthor)%}
             <div class ="col-md-1 col-lg-1">
                 <span> <a class ="fi glyphicon glyphicon-remove" href="{{ path('app_comment_delete', {'id' : comment.getId }) }}"></a></span>
             </div>

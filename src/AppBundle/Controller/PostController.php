@@ -95,12 +95,18 @@ class PostController extends Controller
         $Post = $repo->find($id);
 
         $form = $this->createForm(PostType::class, $Post);
-
+        $user = $this->getUser();
+        if($Post->getAuthor() == $user || $user == 'Alejandro') {
         return $this->render(':posts:form.html.twig',
             [
+
                 'form' => $form->CreateView(),
                 'action' => $this->generateUrl('app_posts_doUpdate', ['id' => $id]),
             ]);
+        } else {
+                    return $this->redirectToRoute('app_posts_lista');
+                }
+
     }
 
     /**
@@ -115,17 +121,20 @@ class PostController extends Controller
 
     public function doUpdateAction($id, Request $request)
     {
+
         $m = $this->getDoctrine()->getManager();
         $repo = $m->getRepository('AppBundle:Post');
         $Post = $repo->find($id);
         $form = $this->createForm(PostType::class, $Post);
+        $user = $this->getUser();
 
-        $form->handleRequest($request);
-        if($form->isValid()){
-            $m->flush();
 
-            return $this->redirectToRoute('app_posts_lista');
-        }
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $m->flush();
+
+                return $this->redirectToRoute('app_posts_lista');
+            }
 
         return $this->render(':posts:form.html.twig',
             [
@@ -149,13 +158,17 @@ class PostController extends Controller
         $repo = $m->getRepository('AppBundle:Post');
 
         $Post = $repo->find($id);
-        $m->remove($Post);
-        $m->flush();
+        if($Post->getAuthor() == $this->getUser() || $this->getUser() == 'Alejandro' ) {
+            $m->remove($Post);
+            $m->flush();
 
-        $this->addFlash('messages', 'Post Deleted');
+            $this->addFlash('messages', 'Post Deleted');
 
-        return $this->redirectToRoute('app_posts_lista');
-
+            return $this->redirectToRoute('app_posts_lista');
+        }
+        else{
+           return $this->redirectToRoute('app_posts_lista');
+        }
     }
 
 }

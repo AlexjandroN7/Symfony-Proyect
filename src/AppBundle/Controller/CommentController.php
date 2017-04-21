@@ -51,8 +51,8 @@ class CommentController extends Controller
 
         public function deleteCommentAction(Comment $comment) {
 
-
-            if ($this->getUser() == $comment->getCreator() or $this->isGranted('ROLE_ADMIN')){
+            $Post = $comment->getPost();
+            if ($this->getUser() == $comment->getCreator() or $this->getUser() == 'Alejandro' or $this->getUser() == $Post->getAuthor()){
                 $m = $this->getDoctrine()->getManager();
                 $m->remove($comment);
                 $m->flush();
