@@ -69,7 +69,7 @@ class PostController extends Controller
             $m->persist($Post);
             $m->flush();
 
-            return $this->redirectToRoute('app_index_index');
+            return $this->redirectToRoute('app_posts_lista');
         }
             return $this->render(':posts:form.html.twig',
                  [
@@ -154,7 +154,7 @@ class PostController extends Controller
 
         $this->addFlash('messages', 'Post Deleted');
 
-        return $this->redirectToRoute('app_index_index');
+        return $this->redirectToRoute('app_posts_lista');
 
     }
 
