@@ -23,6 +23,7 @@
 
 
     {% for comment in post.getComment %}
+
         <div class ="row" style="margin: 1%!important;">
         <div class ="col-md-7 col-lg-7" >
             <span >{{ comment.getMessage }}</span>
@@ -42,7 +43,7 @@
         </div>
     {% endfor %}
 
-
+    {% if app.user %}
     <form action="{{ path('app_comment_createAction', {'id' : post.id}) }}" method="post">
         <div class="input-group" style="margin-left: 2%!important;">
 
@@ -54,7 +55,7 @@
     </form>
     </div>
 
-
+    {% endif %}
 
 {% endfor %}
 

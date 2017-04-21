@@ -124,7 +124,7 @@ class PostController extends Controller
         if($form->isValid()){
             $m->flush();
 
-            return $this->redirectToRoute('app_index_index');
+            return $this->redirectToRoute('app_posts_lista');
         }
 
         return $this->render(':posts:form.html.twig',

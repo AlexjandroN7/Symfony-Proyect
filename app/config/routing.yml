@@ -1,14 +1,11 @@
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
 
-app.index:
-    resource: "@AppBundle/Controller/IndexController.php"
-    type: annotation
 
 app.post:
     resource: "@AppBundle/Controller/PostController.php"
     type: annotation
-    prefix: /lista
+    prefix: /
 app.comment:
     resource: "@AppBundle/Controller/CommentController.php"
     type: annotation
